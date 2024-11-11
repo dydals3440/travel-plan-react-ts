@@ -1,0 +1,3 @@
+{"code":"us","name":"미국","nameEn":"United States","voltage":120,"visa":{"required":true,"duration":90},"continent":"North America","_id":"UYS7rEekK972ELsN"}
+{"code":"jp","name":"일본","nameEn":"Japan","voltage":100,"visa":{"required":false,"duration":90},"continent":"Asia","_id":"aQXWj8SfPD0DrBz1"}
+{"code":"kr","name":"대한민국","nameEn":"South Korea","voltage":220,"visa":{"required":false,"duration":0},"continent":"Asia","_id":"xp3gi4LqA6Q7z7SF"}

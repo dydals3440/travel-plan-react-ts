@@ -1,36 +1,37 @@
 import { useRef } from 'react';
 
-export default function RegisterCity() {
+export default function RegisterCountry() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const registerCity = async () => {
-    const city = textareaRef.current?.value;
 
-    if (!city) {
+  const registerCountry = async () => {
+    const country = textareaRef.current?.value;
+    console.log(country);
+
+    if (!country) {
       return;
     }
 
-    const response = await fetch('/api/cities', {
+    const response = await fetch('/api/countries', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: city,
+      body: country,
     });
 
     if (response.ok) {
       textareaRef.current!.value = '';
-      alert('City Registered');
+      alert('Country Registered');
     } else {
-      alert('Failed to register city');
+      alert('Failed To Register Country');
     }
   };
-
   return (
     <div>
       <div>
         <textarea ref={textareaRef} />
       </div>
-      <button onClick={registerCity}>등록</button>
+      <button onClick={registerCountry}>등록</button>
     </div>
   );
 }
