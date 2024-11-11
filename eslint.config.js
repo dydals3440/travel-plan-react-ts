@@ -24,6 +24,5 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
-    'react/react-in-jsx-scope': 'off',
   }
 );

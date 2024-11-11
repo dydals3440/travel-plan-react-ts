@@ -13,6 +13,7 @@ const colors = {
   gray900: '#1A1A1A',
   bg: '#F6F6F9',
   bg2: '#FBFBFF',
+  transparent: 'transparent',
 };
 
 export default colors;

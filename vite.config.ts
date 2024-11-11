@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), svgr()],
   // root가 변경됨
   root: 'client',
   server: {
@@ -16,6 +17,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src',
+      '@icons': '/src/assets/icons',
     },
   },
 });

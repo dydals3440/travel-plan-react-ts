@@ -18,3 +18,5 @@ export default {
   },
   plugins: [],
 };
+
+// git commit --amend 이전 커밋에 추가
