@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import CityList from '../../components/home/CityList';
 import FilterList from '../../components/home/FilterList';
 import SearchInput from '../../components/home/SearchInput';
@@ -6,7 +5,6 @@ import { City } from '../../types';
 import NarrowLayout from '@/components/common/NarrowLayout';
 
 export default function Home() {
-  const [search, setSearch] = useState('');
   //   const { data } =
   //     useQuery();
   //     /* 국가 필터, 검색 필터를 같이 넘겨 */
@@ -14,11 +12,7 @@ export default function Home() {
     <NarrowLayout className='flex flex-col items-center my-30'>
       {/* 검색창 */}
       <div className='w-[339px] mb-24'>
-        <SearchInput
-          value={search}
-          onChange={setSearch}
-          onCompositionEnd={(value) => console.log(value)}
-        />
+        <SearchInput onCompositionEnd={(value) => console.log(value)} />
       </div>
       {/* 국가 필터 */}
       {/* 여행지 리스트 */}
