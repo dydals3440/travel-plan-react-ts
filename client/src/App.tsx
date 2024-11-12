@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Loading from './components/common/Loading';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ModalProvider from './components/common/ModalProvider';
 
 // 네트워크 트래픽과 리소스 사용을 줄일 수 있음.
 const RegisterCity = lazy(
@@ -30,6 +31,8 @@ function App() {
             </Route>
           </Routes>
         </Suspense>
+        {/* 모달 */}
+        <ModalProvider />
       </QueryClientProvider>
     </BrowserRouter>
   );
