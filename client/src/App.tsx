@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Loading from './components/common/Loading';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ModalProvider from './components/common/ModalProvider';
+import './index.css';
+import './App.css';
 
 // 네트워크 트래픽과 리소스 사용을 줄일 수 있음.
 const RegisterCity = lazy(
@@ -14,6 +16,8 @@ const Home = lazy(() => import('./pages/home/Home'));
 const RegisterCountry = lazy(
   () => import('@/pages/admin/RegisterCountry/RegisterCountry')
 );
+
+const PlanCity = lazy(() => import('@/pages/plan/City'));
 
 const queryClient = new QueryClient();
 
@@ -29,6 +33,7 @@ function App() {
               <Route path='register-city' element={<RegisterCity />} />
               <Route path='register-country' element={<RegisterCountry />} />
             </Route>
+            <Route path='/plan/:city' element={<PlanCity />} />
           </Routes>
         </Suspense>
         {/* 모달 */}
