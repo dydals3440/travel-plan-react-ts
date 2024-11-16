@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -6,16 +5,28 @@ import './TravelDateSelector.css';
 
 import { ko } from 'date-fns/locale';
 
-export default function TravelDateSelector() {
+interface Props {
+  startDate: Date | null;
+  endDate: Date | null;
+  onChange: (start: Date | null, end: Date | null) => void;
+}
+
+export default function TravelDateSelector({
+  startDate,
+  endDate,
+  onChange,
+}: Props) {
   // monthsShown 몇개를 보여줄지, 달력을
   // selectsRange: true -> onChange 이벤트에, startDate와 endDate를 받을 수 있음.
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  // const [startDate, setStartDate] = useState<Date | null>(null);
+  // const [endDate, setEndDate] = useState<Date | null>(null);
 
   const handleChange = ([start, end]: [Date | null, Date | null]) => {
     // 시작과 끝 핸들러 연결 (Range 선택이 가능해짐)
-    setStartDate(start);
-    setEndDate(end);
+    // setStartDate(start);
+    // setEndDate(end);
+
+    onChange(start, end);
   };
 
   // 최소 날짜 (오늘 날짜)

@@ -18,7 +18,7 @@ export default function CityList({ cities }: Props) {
       <Modal>
         <ModalBackdrop />
         <ModalPanel>
-          <div className='rounded-20 border border-gray100 bg-[#ffffff] px-28 pt-58 pb-37 relative w-[655px] min-h-[300px]'>
+          <div className='pt-58 pb-37 relative w-[655px] min-h-[300px]'>
             <button onClick={onClose} className='absolute right-28 top-22'>
               <CloseIcon />
             </button>

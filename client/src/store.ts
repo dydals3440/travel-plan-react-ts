@@ -6,20 +6,25 @@ interface State {
   startDate: Date | null;
   // 일정 종료 날짜
   endDate: Date | null;
+  //
+  status: 'period_edit' | 'planning';
 }
 
 type Action = {
-  setStartDate: (date: Date) => void;
-  setEndDate: (date: Date) => void;
+  setStartDate: (date: Date | null) => void;
+  setEndDate: (date: Date | null) => void;
+  setStatus: (status: State['status']) => void;
 };
 
 // 타입 추론을 취해 create<State>() 이렇게 한번 함수를 실행시키고
 // 그 다음에 리듀서를 넘기면 됨
-export const store = create<State & Action>()((set) => ({
+export const usePlanStore = create<State & Action>()((set) => ({
   startDate: null,
   endDate: null,
+  status: 'period_edit',
   setStartDate: (date) => set({ startDate: date }),
   setEndDate: (date) => set({ endDate: date }),
+  setStatus: (status) => set({ status }),
 }));
 
 // ModalState 인터페이스는 모달 컴포넌트 배열을 정의합니다.

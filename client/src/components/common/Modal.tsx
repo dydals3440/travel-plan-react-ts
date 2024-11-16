@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
-
+import cn from 'classnames';
 // state / business logic X
 export default function Modal({ children }: PropsWithChildren) {
   // 컴포넌트 트리 유지, 돔은 다른데 표시하고 싶은 경우 유용
@@ -19,10 +19,22 @@ export function ModalBackdrop() {
   );
 }
 
-export function ModalPanel({ children }: PropsWithChildren) {
+export function ModalPanel({
+  children,
+  className,
+}: PropsWithChildren<{
+  className?: string;
+}>) {
   return (
     <div className='fixed inset-0 flex items-center justify-center'>
-      {children}
+      <div
+        className={cn(
+          `rounded-20 border border-gray100 bg-[#ffffff] p-28`,
+          className
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }
