@@ -5,7 +5,11 @@ import cn from 'classnames';
 import { format } from 'date-fns';
 import Button from '../common/Button';
 
-export default function DailyTimeSelector() {
+export default function DailyTimeController({
+  onCompleted,
+}: {
+  onCompleted: () => void;
+}) {
   const [hidden, setHidden] = useState(false);
   const { dailyTimes, setDailyTime } = usePlanStore();
   // useMemo를 통해, 계산 로직을 성능 좋게 만들려고 함.
@@ -96,7 +100,9 @@ export default function DailyTimeSelector() {
             </table>
             {/* div 추가해서 인라인 동작하게 */}
             <div>
-              <Button className='px-47'>시간 설정 완료</Button>
+              <Button onClick={onCompleted} className='px-47'>
+                시간 설정 완료
+              </Button>
             </div>
           </div>
         </>
