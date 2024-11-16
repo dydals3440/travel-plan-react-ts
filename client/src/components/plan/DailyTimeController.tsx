@@ -4,6 +4,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { format } from 'date-fns';
 import Button from '../common/Button';
+import { parseTime, transformTimeToMinutes } from '@/utils/time';
 
 export default function DailyTimeController({
   onCompleted,
@@ -28,7 +29,7 @@ export default function DailyTimeController({
         <div className='flex items-center'>
           <span className='mr-16'>여행시간 상세설명</span>
           <span className='text-[#5A88FF]'>
-            {formatMinutesToTime(totalTime)}
+            {printTime(parseTime(totalTime))}
           </span>
           <button onClick={() => setHidden((prev) => !prev)}>
             <UpArrowIcon className={cn({ 'rotate-180': !hidden })} />
@@ -111,13 +112,6 @@ export default function DailyTimeController({
   );
 }
 
-const transformTimeToMinutes = (time: string) => {
-  return parseInt(time.slice(0, 2)) * 60 + parseInt(time.slice(3)) * 1;
-};
-
-const formatMinutesToTime = (minutes: number) => {
-  const hours = Math.floor(minutes / 60);
-  const remainMinutes = minutes % 60;
-
-  return `총 ${hours}시간 ${String(remainMinutes).padStart(2, '0')}분`;
+const printTime = ({ hours, minutes }: { hours: number; minutes: number }) => {
+  return `${hours}시간 ${minutes}분`;
 };

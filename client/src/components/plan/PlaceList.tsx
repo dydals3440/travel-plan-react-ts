@@ -6,20 +6,31 @@ import StarIcon from '@/assets/icons/star.svg?react';
 
 interface Props {
   places: Place[];
+  onAddPlace: (place: Place) => void;
 }
-
-export default function PlaceList({ places }: Props) {
+// presentational component 상태관리는, 상단에서
+export default function PlaceList({ places, onAddPlace }: Props) {
   return (
-    <div className='flex flex-col gap-y-24 h-full overflow-y-auto scrollbar-hide'>
+    <div className='flex flex-col gap-y-24 h-full overflow-y-auto overflow-hidden'>
       {places.map((place) => (
-        <PlaceItem key={`${place.city}_${place.name}`} place={place} />
+        <PlaceItem
+          key={`${place.city}_${place.name}`}
+          place={place}
+          onAddPlace={onAddPlace}
+        />
       ))}
     </div>
   );
 }
 
 // list와 item 자체는 가까워도 될 것 같음.
-function PlaceItem({ place }: { place: Place }) {
+function PlaceItem({
+  place,
+  onAddPlace,
+}: {
+  place: Place;
+  onAddPlace: (place: Place) => void;
+}) {
   return (
     <div className='flex gap-x-11 mb-24'>
       <img src={place.thumbnail} className='w-68 h-68 bg-bg rounded-6' />
@@ -44,8 +55,10 @@ function PlaceItem({ place }: { place: Place }) {
           </span>
         </div>
       </div>
-      <button className='relative'>
-        <PlusIcon className='absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2' />
+      <button className='relative' onClick={() => onAddPlace(place)}>
+        <div className='bg-gray100 rounded-2xl w-50 h-50 flex flex-col items-center justify-center mr-5'>
+          <PlusIcon />
+        </div>
       </button>
     </div>
   );

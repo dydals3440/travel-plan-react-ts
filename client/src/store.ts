@@ -1,6 +1,7 @@
 import { addDays, differenceInDays } from 'date-fns';
 import { FunctionComponent } from 'react';
 import { create } from 'zustand';
+import { Place } from './types';
 
 interface State {
   // 시작 날짜
@@ -11,6 +12,11 @@ interface State {
   status: 'period_edit' | 'planning';
   //
   dailyTimes: { startTime: string; endTime: string; date: Date }[];
+  // 장소의 이름을, 아래에 저장
+  plannedPlaces: {
+    place: Place;
+    duration: number; // minutes
+  }[];
 }
 
 type Action = {
@@ -22,6 +28,10 @@ type Action = {
     time: string,
     type: 'startTime' | 'endTime'
   ) => void;
+  // planned action
+  addPlannedPlace: (place: Place, duration: number) => void;
+  removedPlannedPlace: (index: number) => void;
+  setDurationForPlannedPlace: (index: number, duration: number) => void;
 };
 
 // 타입 추론을 취해 create<State>() 이렇게 한번 함수를 실행시키고
@@ -31,6 +41,7 @@ export const usePlanStore = create<State & Action>()((set, get) => ({
   endDate: null,
   status: 'period_edit',
   dailyTimes: [],
+  plannedPlaces: [],
   setStartDate: (date) => set({ startDate: date }),
   setEndDate: (date) => {
     if (date) {
@@ -65,6 +76,20 @@ export const usePlanStore = create<State & Action>()((set, get) => ({
       ),
     }));
   },
+  addPlannedPlace: (place: Place, duration: number) =>
+    set((prev) => ({
+      plannedPlaces: [...prev.plannedPlaces, { place, duration }],
+    })),
+  removedPlannedPlace: (index: number) =>
+    set((prev) => ({
+      plannedPlaces: prev.plannedPlaces.filter((_, i) => i !== index),
+    })),
+  setDurationForPlannedPlace: (index: number, duration: number) =>
+    set((prev) => ({
+      plannedPlaces: prev.plannedPlaces.map((place, i) =>
+        i === index ? { ...place, duration } : place
+      ),
+    })),
 }));
 
 // ModalState 인터페이스는 모달 컴포넌트 배열을 정의합니다.
