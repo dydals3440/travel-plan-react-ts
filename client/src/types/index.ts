@@ -32,3 +32,17 @@ export interface Country {
     | 'Oceania'
     | 'Antarctica';
 }
+
+export interface Place {
+  name: string;
+  thumbnail: string;
+  category: 'attraction' | 'restaurant' | 'cafe';
+  address: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  likes: number;
+  rating: number;
+  city: City['code'];
+}

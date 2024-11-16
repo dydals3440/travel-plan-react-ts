@@ -9,7 +9,7 @@ interface Props {
 export default function PlanControllerHeader({ startDate, endDate }: Props) {
   return (
     <div className='text-left'>
-      <h2 className='text-35 font-bold'>도쿄</h2>
+      <h2 className='text-35 mb-20 font-bold'>도쿄</h2>
       {startDate && endDate && (
         <div className='text-17 tracking-[0.17px] font-medium flex items-center'>
           <span className='mr-8'>{`${format(

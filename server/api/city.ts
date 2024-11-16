@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
-import { City, Country } from '../types';
-import { citiesDB, countriesDB } from '../db';
+import { City, Country, Place } from '../types';
+import { citiesDB, countriesDB, placesDB } from '../db';
 
 // Router Instance 생성
 const cityRouter = Router();
@@ -111,6 +111,43 @@ cityRouter.post('/', (req, res) => {
       res.status(500).send(err);
     } else {
       res.send(doc);
+    }
+  });
+});
+
+//
+cityRouter.post('/:city/places', (req, res) => {
+  // 장소에 정보는 바디에 있음.
+  const place = req.body;
+  const city = req.params.city;
+
+  placesDB.insert({ ...place, city }, (err: Error | null, place: Place) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(place);
+    }
+  });
+});
+
+cityRouter.get('/:city/places', (req, res) => {
+  const city = req.params.city;
+  const category = req.query.category as Place['category'];
+  const q = req.query.q as string;
+
+  const query = {
+    city,
+    ...(category ? { category } : {}),
+    ...(q ? { name: new RegExp(q, 'i') } : {}),
+  };
+
+  // 필터도되고 검색도 되는 API로 변경, 위의 query를 받았기에
+  placesDB.find(query, (error: Error | null, places: Place[]) => {
+    if (error) {
+      // 서버에러가 날 가능성이 있기에 500
+      res.status(500).send(error);
+    } else {
+      res.send(places);
     }
   });
 });

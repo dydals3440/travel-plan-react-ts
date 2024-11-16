@@ -7,6 +7,7 @@ import './index.css';
 import './App.css';
 
 import '@/utils/date';
+import RegisterPlace from './pages/admin/RegisterPlace/RegisterPlace';
 
 // 네트워크 트래픽과 리소스 사용을 줄일 수 있음.
 const RegisterCity = lazy(
@@ -34,6 +35,7 @@ function App() {
             <Route path='admin'>
               <Route path='register-city' element={<RegisterCity />} />
               <Route path='register-country' element={<RegisterCountry />} />
+              <Route path='register-place' element={<RegisterPlace />} />
             </Route>
             <Route path='/plan/:city' element={<PlanCity />} />
           </Routes>
