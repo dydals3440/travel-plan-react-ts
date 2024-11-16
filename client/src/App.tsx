@@ -6,6 +6,8 @@ import ModalProvider from './components/common/ModalProvider';
 import './index.css';
 import './App.css';
 
+import '@/utils/date';
+
 // 네트워크 트래픽과 리소스 사용을 줄일 수 있음.
 const RegisterCity = lazy(
   () => import('./pages/admin/RegisterCity/RegisterCity')

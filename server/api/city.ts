@@ -83,7 +83,7 @@ cityRouter.get('/search', (req: Request, res: Response) => {
 
 cityRouter.get('/:city', (req, res) => {
   citiesDB.findOne(
-    { city: req.params.city },
+    { code: req.params.city },
     (err: Error | null, city: City) => {
       if (err) {
         res.status(500).send(err);
