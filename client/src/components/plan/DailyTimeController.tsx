@@ -4,7 +4,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { format } from 'date-fns';
 import Button from '../common/Button';
-import { parseTime, transformTimeToMinutes } from '@/utils/time';
+import { getTotalTime, parseTime, printTime } from '@/utils/time';
 
 export default function DailyTimeController({
   onCompleted,
@@ -15,13 +15,7 @@ export default function DailyTimeController({
   const { dailyTimes, setDailyTime } = usePlanStore();
   // useMemo를 통해, 계산 로직을 성능 좋게 만들려고 함.
 
-  const totalTime = dailyTimes.reduce((acc, dailyTime) => {
-    const dailyTotalTime =
-      transformTimeToMinutes(dailyTime.endTime) -
-      transformTimeToMinutes(dailyTime.startTime);
-
-    return acc + dailyTotalTime;
-  }, 0);
+  const totalTime = getTotalTime(dailyTimes);
 
   return (
     <div className='text-left flex flex-col gap-y-18 w-[368px]'>
@@ -29,7 +23,7 @@ export default function DailyTimeController({
         <div className='flex items-center'>
           <span className='mr-16'>여행시간 상세설명</span>
           <span className='text-[#5A88FF]'>
-            {printTime(parseTime(totalTime))}
+            총 {printTime(parseTime(totalTime))}
           </span>
           <button onClick={() => setHidden((prev) => !prev)}>
             <UpArrowIcon className={cn({ 'rotate-180': !hidden })} />
@@ -111,7 +105,3 @@ export default function DailyTimeController({
     </div>
   );
 }
-
-const printTime = ({ hours, minutes }: { hours: number; minutes: number }) => {
-  return `${hours}시간 ${minutes}분`;
-};

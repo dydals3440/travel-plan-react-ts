@@ -62,18 +62,23 @@ function PlannedPlace({
               className='h-48 w-48 shrink-0 rounded-6 mr-12'
               alt={plannedPlace.place.name}
             />
-            <div className='flex-1 mr-12'>
+            {/* div 영역을 넘치는 경우에 말줄임표니까, overflow-hidden을 부모의 컨테이너에 설정. */}
+            <div className='flex-1 mr-12 overflow-hidden'>
               <h6 className='text-15 font-semibold tracking-[0.15px] mb-8'>
                 {plannedPlace.place.name}
               </h6>
-              <p className='text-14 tracking-[0.14px] text-gray500'>
+              <p className='text-14 tracking-[0.14px] text-gray500 overflow-hidden whitespace-nowrap text-ellipsis'>
                 <span className='text-main font-medium'>
                   {categories[plannedPlace.place.category]}
                 </span>
                 {plannedPlace.place.address}
               </p>
             </div>
-            <Button variant='action' onClick={() => setEditing(true)}>
+            <Button
+              variant='action'
+              className='shrink-0'
+              onClick={() => setEditing(true)}
+            >
               {hours}시간 {minutes}분
             </Button>
             <button onClick={() => onDeletePlace(index)}>

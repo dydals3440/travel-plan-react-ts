@@ -1,17 +1,31 @@
+import { getTotalTime, parseTime, printTime } from '@/utils/time';
 import PlannedPlaceList from './PlannedPlaceList';
 import { usePlanStore } from '@/store';
 
 export default function PlaceController() {
-  const { plannedPlaces, removedPlannedPlace, setDurationForPlannedPlace } =
-    usePlanStore();
+  const {
+    plannedPlaces,
+    removedPlannedPlace,
+    setDurationForPlannedPlace,
+    dailyTimes,
+  } = usePlanStore();
+
+  const totalTime = getTotalTime(dailyTimes);
+
+  const plannedTime = plannedPlaces.reduce(
+    (acc, { duration }) => acc + duration,
+    0
+  );
+
   return (
     <>
       {/* 블락과 상관없이 */}
       <div className='flex flex-col text-left'>
         <h5 className='flex items-end mb-13'>
-          <span className='text-30 font-medium tracking-[0.3px]'>0</span>
+          <span className='text-30 font-medium tracking-[0.3px] mr-8'>0</span>
           <span className='text-15 tracking-[0.15px] mb-4'>
-            1시간 0분 / 36시간 0분
+            {printTime(parseTime(plannedTime))} /{' '}
+            {printTime(parseTime(totalTime))}
           </span>
         </h5>
         {plannedPlaces.length === 0 ? (

@@ -11,3 +11,24 @@ export const parseTime = (minutes: number) => {
     minutes: remainMinutes,
   };
 };
+
+export const printTime = ({
+  hours,
+  minutes,
+}: {
+  hours: number;
+  minutes: number;
+}) => {
+  return `${hours}시간 ${minutes}분`;
+};
+
+export const getTotalTime = (
+  times: { startTime: string; endTime: string }[]
+) => {
+  return times.reduce((acc, dailyTime) => {
+    const dailyTotalTime =
+      transformTimeToMinutes(dailyTime.endTime) -
+      transformTimeToMinutes(dailyTime.startTime);
+    return acc + dailyTotalTime;
+  }, 0);
+};
