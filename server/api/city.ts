@@ -132,12 +132,21 @@ cityRouter.post('/:city/places', (req, res) => {
 
 cityRouter.get('/:city/places', (req, res) => {
   const city = req.params.city;
-  const category = req.query.category as Place['category'];
+  const category = req.query.category as
+    | Place['category']
+    | Place['category'][]
+    | undefined;
   const q = req.query.q as string;
 
   const query = {
     city,
-    ...(category ? { category } : {}),
+    ...(category
+      ? {
+          category: {
+            $in: Array.isArray(category) ? category : [category],
+          },
+        }
+      : {}),
     ...(q ? { name: new RegExp(q, 'i') } : {}),
   };
 

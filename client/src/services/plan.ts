@@ -6,10 +6,20 @@ export const getCity = async (cityId: string): Promise<City> => {
 
 export const getPlaces = async (
   city: string,
-  query: { category?: string; q?: string } = {}
+  { q, category }: { category?: string | string[]; q?: string } = {}
 ): Promise<Place[]> => {
   // make query (with query Object)
-  const queryString = new URLSearchParams(query).toString();
+  const queries = new URLSearchParams(q);
+  // URLSearchParams -> 첫번쨰 파라미터로, 스트링 키, 스트링 밸류
+
+  if (category) {
+    const categories = Array.isArray(category) ? category : [category];
+    categories.forEach((c) => {
+      queries.append('category', c);
+    });
+  }
+
+  const queryString = queries.toString();
 
   return fetch(
     `/api/cities/${city}/places${queryString ? `?${queryString}` : ''}`

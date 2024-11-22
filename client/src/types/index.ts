@@ -36,7 +36,7 @@ export interface Country {
 export interface Place {
   name: string;
   thumbnail: string;
-  category: 'attraction' | 'restaurant' | 'cafe';
+  category: 'attraction' | 'restaurant' | 'cafe' | 'accommodation';
   address: string;
   coordinates: {
     lat: number;
