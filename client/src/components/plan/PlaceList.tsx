@@ -1,8 +1,8 @@
-import { categories } from '@/constant';
 import { Place } from '@/types';
 import PlusIcon from '@/assets/icons/plus.svg?react';
 import HeartIcon from '@/assets/icons/heart.svg?react';
 import StarIcon from '@/assets/icons/star.svg?react';
+import PlaceCategory from '../common/PlaceCategory';
 
 interface Props {
   places: Place[];
@@ -39,9 +39,10 @@ function PlaceItem({
           {place.name}
         </h6>
         <p className='flex text-14 tracking-[0.14px] text-gray500'>
-          <span className='text-main font-medium'>
-            {categories[place.category]}
-          </span>
+          <PlaceCategory
+            className='text-14 tracking-[0.14px]'
+            category={place.category}
+          />
           {place.address}
         </p>
         <div className='flex text-14 tracking-[0.14px] text-gray600'>

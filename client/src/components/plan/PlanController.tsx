@@ -1,23 +1,30 @@
 import { usePlanStore } from '@/store';
 import DailyTimeController from './DailyTimeController';
-import PlanControllerHeader from './PlanControllerHeader';
+import ControllerHeader from '../shared/PlanControllerHeader';
 import Wizard from '../common/Wizard';
 import PlaceController from './PlaceController';
 import PlaceContainer from './PlaceContainer';
 import AccommodationContainer from './AccommodationContainer';
 import AccommodationController from './AccommodationController';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function PlanController() {
   const { startDate, endDate } = usePlanStore();
+  const { city } = useParams();
+  const navigate = useNavigate();
+
   return (
     <div className='h-full flex'>
       <Wizard
+        onCompleted={() => {
+          navigate(`/itinerary/${city}`);
+        }}
         steps={[
           {
             title: '날짜 확인',
             content: ({ onNext }) => (
               <div className='px-24 py-30 flex flex-col gap-y-18 overflow-y-hidden h-full'>
-                <PlanControllerHeader startDate={startDate} endDate={endDate} />
+                <ControllerHeader startDate={startDate} endDate={endDate} />
                 <DailyTimeController onCompleted={onNext} />
               </div>
             ),
@@ -27,10 +34,7 @@ export default function PlanController() {
             content: () => (
               <div className='flex'>
                 <div className='px-24 py-30 flex flex-col gap-y-18 overflow-y-hidden h-full'>
-                  <PlanControllerHeader
-                    startDate={startDate}
-                    endDate={endDate}
-                  />
+                  <ControllerHeader startDate={startDate} endDate={endDate} />
                   <div className='h-full'>
                     <div className='p-14 border-b-3 border-b-main mb-18'>
                       <h4 className='text-18 font-semibold text-main'>
@@ -51,10 +55,7 @@ export default function PlanController() {
             content: () => (
               <div className='flex'>
                 <div className='px-24 py-30 flex flex-col gap-y-18 overflow-y-hidden h-full'>
-                  <PlanControllerHeader
-                    startDate={startDate}
-                    endDate={endDate}
-                  />
+                  <ControllerHeader startDate={startDate} endDate={endDate} />
                   <div className='h-full'>
                     <div className='p-14 border-b-3 border-b-main mb-18'>
                       <h4 className='text-18 font-semibold text-main'>

@@ -20,7 +20,7 @@ interface Props {
   }[];
 }
 
-// App 컴포넌트에 감싸서, 실행됨을 보장.
+// App 컴포넌트에 감싸서, 실행됨을 보장. (맵이 로딩된이후에, 컴포넌트들이 추가되게함)
 export function MapProvider({ children }: PropsWithChildren) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: API_KEY,

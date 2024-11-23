@@ -4,6 +4,7 @@ import FlightIcon from '@/assets/icons/Airplane.svg?react';
 import VisaIcon from '@/assets/icons/visa.svg?react';
 import VoltageIcon from '@/assets/icons/power.svg?react';
 import ClockIcon from '@/assets/icons/time.svg?react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   city: City;
@@ -88,10 +89,12 @@ export default function CityDetail({ city }: Props) {
         />
       </div>
       <div>
-        <button className='w-185 bg-black text-[#ffffff] text-16 font-medium rounded-5 py-14 flex items-center justify-center'>
-          <span className='ml-8'>일정 만들기</span>
-          <ArrowIcon className='ml-5 ' />
-        </button>
+        <Link to={`/plan/${city.code}`}>
+          <button className='w-185 bg-black text-[#ffffff] text-16 font-medium rounded-5 py-14 flex items-center justify-center'>
+            <span className='ml-8'>일정 만들기</span>
+            <ArrowIcon className='ml-5 ' />
+          </button>
+        </Link>
       </div>
     </div>
   );

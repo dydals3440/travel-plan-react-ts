@@ -4,12 +4,24 @@ export const transformTimeToMinutes = (time: string) => {
 
 export const parseTime = (minutes: number) => {
   const hours = Math.floor(minutes / 60);
-  const remainMinutes = minutes % 60;
+  const remainMinutes = Math.floor(minutes % 60);
 
   return {
     hours,
     minutes: remainMinutes,
   };
+};
+
+export const timeToString = ({
+  hours,
+  minutes,
+}: {
+  hours: number;
+  minutes: number;
+}) => {
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}`;
 };
 
 export const printTime = ({

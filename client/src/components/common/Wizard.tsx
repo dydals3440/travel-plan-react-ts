@@ -11,6 +11,7 @@ type Step = {
 
 interface Props {
   steps: Step[];
+  onCompleted?: () => void;
 }
 
 // currentIndex에 대한 정보 어디에 저장?
@@ -20,7 +21,7 @@ interface Props {
 
 // 위자드 컴포넌트에서, 컨텐츠들을 내부 프롭으로 사용.
 // state가 변경될떄마다, content가 변경이 되어야 함. -> useState
-export default function Wizard({ steps }: Props) {
+export default function Wizard({ steps, onCompleted }: Props) {
   const [currentStep, setCurrentStep] = useState(0);
 
   const onNext = () => {
@@ -34,6 +35,7 @@ export default function Wizard({ steps }: Props) {
         steps={steps}
         currentStep={currentStep}
         onChangeStep={setCurrentStep}
+        onCompleted={onCompleted}
       />
       {/* content에 onNext를 넘겨줌 */}
       {steps[currentStep].content({ onNext })}
@@ -45,10 +47,12 @@ function Steps({
   steps,
   currentStep,
   onChangeStep,
+  onCompleted,
 }: {
   steps: Step[];
   currentStep: number;
   onChangeStep: (index: number) => void;
+  onCompleted?: () => void;
 }) {
   return (
     <div className='flex flex-col justify-between items-center py-50 px-20 w-140'>
@@ -73,11 +77,19 @@ function Steps({
           );
         })}
       </ul>
-      {currentStep < steps.length - 1 && (
-        <Button className='px-36' onClick={() => onChangeStep(currentStep + 1)}>
-          다음
-        </Button>
-      )}
+      {currentStep < steps.length - 1 ||
+        (onCompleted && (
+          <Button
+            className='px-36'
+            onClick={() =>
+              currentStep < steps.length - 1
+                ? onChangeStep(currentStep + 1)
+                : onCompleted?.()
+            }
+          >
+            다음
+          </Button>
+        ))}
     </div>
   );
 }

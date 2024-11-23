@@ -128,6 +128,7 @@ interface ModalState {
 type ModalAction = {
   openModal: (modal: FunctionComponent<{ onClose: () => void }>) => void;
   closeModal: (index: number) => void;
+  clearModals: () => void;
 };
 
 // useModalStore는 Zustand 라이브러리를 사용하여 모달 상태와 액션을 관리하는 훅을 생성합니다.
@@ -141,4 +142,6 @@ export const useModalStore = create<ModalState & ModalAction>()((set) => ({
   // closeModal 함수는 인덱스를 받아서 해당 인덱스의 모달을 배열에서 제거합니다.
   closeModal: (index) =>
     set((state) => ({ modals: state.modals.filter((_, i) => i !== index) })),
+
+  clearModals: () => set({ modals: [] }),
 }));
