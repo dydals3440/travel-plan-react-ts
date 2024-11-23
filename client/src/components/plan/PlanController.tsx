@@ -5,6 +5,7 @@ import Wizard from '../common/Wizard';
 import PlaceController from './PlaceController';
 import PlaceContainer from './PlaceContainer';
 import AccommodationContainer from './AccommodationContainer';
+import AccommodationController from './AccommodationController';
 
 export default function PlanController() {
   const { startDate, endDate } = usePlanStore();
@@ -63,7 +64,9 @@ export default function PlanController() {
                     <AccommodationContainer />
                   </div>
                 </div>
-                <div className='px-24 py-30'>{/* <PlaceController /> */}</div>
+                <div className='px-24 py-30'>
+                  <AccommodationController />
+                </div>
               </div>
             ),
           },

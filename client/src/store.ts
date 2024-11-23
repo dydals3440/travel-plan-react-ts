@@ -17,6 +17,7 @@ interface State {
     place: Place;
     duration: number; // minutes
   }[];
+  plannedAccommodations: Array<Place | null>;
 }
 
 type Action = {
@@ -32,6 +33,8 @@ type Action = {
   addPlannedPlace: (place: Place, duration: number) => void;
   removedPlannedPlace: (index: number) => void;
   setDurationForPlannedPlace: (index: number, duration: number) => void;
+  addPlannedAccommodation: (place: Place) => void;
+  removePlannedAccommodation: (index: number) => void;
 };
 
 // 타입 추론을 취해 create<State>() 이렇게 한번 함수를 실행시키고
@@ -42,6 +45,7 @@ export const usePlanStore = create<State & Action>()((set, get) => ({
   status: 'period_edit',
   dailyTimes: [],
   plannedPlaces: [],
+  plannedAccommodations: [],
   setStartDate: (date) => set({ startDate: date }),
   setEndDate: (date) => {
     if (date) {
@@ -59,12 +63,14 @@ export const usePlanStore = create<State & Action>()((set, get) => ({
       set({
         dailyTimes,
         endDate: date,
+        plannedAccommodations: Array.from({ length: diff - 1 }, () => null),
       });
     } else {
       set({
         endDate: date,
         // dailyTimes를 돌면서, 테이블 생성
         dailyTimes: [],
+        plannedAccommodations: [],
       });
     }
   },
@@ -88,6 +94,24 @@ export const usePlanStore = create<State & Action>()((set, get) => ({
     set((prev) => ({
       plannedPlaces: prev.plannedPlaces.map((place, i) =>
         i === index ? { ...place, duration } : place
+      ),
+    })),
+  addPlannedAccommodation: (place: Place) =>
+    set((prev) => {
+      // 현재 저장된 데이터가 null인 첫번쨰 인덱스
+      const index = prev.plannedAccommodations.findIndex((p) => p === null);
+      // null인 데이터를 못찾음, 기존 데이터와 동일 (장소리스트 추가되지 않게))
+      if (index === -1) return prev;
+      return {
+        plannedAccommodations: prev.plannedAccommodations.map((p, i) =>
+          i === index ? place : p
+        ),
+      };
+    }),
+  removePlannedAccommodation: (index: number) =>
+    set((prev) => ({
+      plannedAccommodations: prev.plannedAccommodations.map((p, i) =>
+        i === index ? null : p
       ),
     })),
 }));
