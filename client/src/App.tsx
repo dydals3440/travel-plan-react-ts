@@ -8,6 +8,7 @@ import './App.css';
 
 import '@/utils/date';
 import RegisterPlace from './pages/admin/RegisterPlace/RegisterPlace';
+import { MapProvider } from './components/plan/Map';
 
 // 네트워크 트래픽과 리소스 사용을 줄일 수 있음.
 const RegisterCity = lazy(
@@ -22,6 +23,8 @@ const RegisterCountry = lazy(
 
 const PlanCity = lazy(() => import('@/pages/plan/City'));
 
+const Itinerary = lazy(() => import('@/pages/itinerary/City'));
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -29,17 +32,20 @@ function App() {
     <BrowserRouter>
       {/* 라우트 그룹을 관리하는 Routes */}
       <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='admin'>
-              <Route path='register-city' element={<RegisterCity />} />
-              <Route path='register-country' element={<RegisterCountry />} />
-              <Route path='register-place' element={<RegisterPlace />} />
-            </Route>
-            <Route path='/plan/:city' element={<PlanCity />} />
-          </Routes>
-        </Suspense>
+        <MapProvider>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='admin'>
+                <Route path='register-city' element={<RegisterCity />} />
+                <Route path='register-country' element={<RegisterCountry />} />
+                <Route path='register-place' element={<RegisterPlace />} />
+              </Route>
+              <Route path='/plan/:city' element={<PlanCity />} />
+              <Route path='/itinerary/:city' element={<Itinerary />} />
+            </Routes>
+          </Suspense>
+        </MapProvider>
         {/* 모달 */}
         <ModalProvider />
       </QueryClientProvider>

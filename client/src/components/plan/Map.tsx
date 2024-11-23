@@ -1,8 +1,8 @@
 import {
   GoogleMap,
-  LoadScript,
   MarkerF,
   PolylineF,
+  useLoadScript,
 } from '@react-google-maps/api';
 import { PropsWithChildren } from 'react';
 
@@ -20,9 +20,20 @@ interface Props {
   }[];
 }
 
+// App 컴포넌트에 감싸서, 실행됨을 보장.
+export function MapProvider({ children }: PropsWithChildren) {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: API_KEY,
+  });
+
+  if (!isLoaded) return null;
+
+  return <>{children}</>;
+}
+
 export default function Map({ center, children }: PropsWithChildren<Props>) {
   return (
-    <LoadScript googleMapsApiKey={API_KEY}>
+    <>
       {/* zoom level이 크면, 요금이 더 큼 */}
       <GoogleMap
         center={center}
@@ -31,7 +42,7 @@ export default function Map({ center, children }: PropsWithChildren<Props>) {
       >
         {children}
       </GoogleMap>
-    </LoadScript>
+    </>
   );
 }
 

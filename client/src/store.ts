@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 import { create } from 'zustand';
 import { Place } from './types';
 
-interface State {
+export interface PlanState {
   // 시작 날짜
   startDate: Date | null;
   // 일정 종료 날짜
@@ -23,7 +23,7 @@ interface State {
 type Action = {
   setStartDate: (date: Date | null) => void;
   setEndDate: (date: Date | null) => void;
-  setStatus: (status: State['status']) => void;
+  setStatus: (status: PlanState['status']) => void;
   setDailyTime: (
     index: number,
     time: string,
@@ -39,7 +39,7 @@ type Action = {
 
 // 타입 추론을 취해 create<State>() 이렇게 한번 함수를 실행시키고
 // 그 다음에 리듀서를 넘기면 됨
-export const usePlanStore = create<State & Action>()((set, get) => ({
+export const usePlanStore = create<PlanState & Action>()((set, get) => ({
   startDate: null,
   endDate: null,
   status: 'period_edit',
