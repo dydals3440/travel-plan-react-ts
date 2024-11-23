@@ -5,7 +5,7 @@ import { addDays, format } from 'date-fns';
 
 interface Props {
   plannedAccommodations: Array<Place | null>;
-  onDeletePlace: (index: number) => void;
+  onDeleteAccommodation: (index: number) => void;
   startDate: Date;
 }
 
@@ -13,7 +13,7 @@ interface Props {
 export default function PlannedAccommodationList({
   startDate,
   plannedAccommodations,
-  onDeletePlace,
+  onDeleteAccommodation,
 }: Props) {
   return (
     <div>
@@ -24,7 +24,7 @@ export default function PlannedAccommodationList({
             key={`${plannedAccommodation.name}_${index}`}
             plannedAccommodation={plannedAccommodation}
             index={index}
-            onDeletePlace={() => onDeletePlace(index)}
+            onDeleteAccommodation={() => onDeleteAccommodation(index)}
             targetDate={targetDate}
           />
         ) : (

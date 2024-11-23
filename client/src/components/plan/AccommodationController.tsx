@@ -26,7 +26,7 @@ export default function AccommodationController() {
 
         <PlannedAccommodationList
           plannedAccommodations={plannedAccommodations}
-          onDeletePlace={removePlannedAccommodation}
+          onDeleteAccommodation={removePlannedAccommodation}
           startDate={startDate!}
         />
       </div>
