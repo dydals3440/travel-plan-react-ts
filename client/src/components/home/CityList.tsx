@@ -34,7 +34,11 @@ export default function CityList({ cities }: Props) {
     // justify-between을 통해 사이에 간격주게함.
     <div className='flex flex-wrap justify-between gap-y-28 items-start w-full'>
       {cities.map((city) => (
-        <button onClick={() => openDetailModal(city)} key={city.code}>
+        <button
+          data-testid='city-card'
+          onClick={() => openDetailModal(city)}
+          key={city.code}
+        >
           <Card
             key={city.code}
             title={city.nameEn.toLocaleUpperCase()}

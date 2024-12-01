@@ -6,13 +6,19 @@ import NarrowLayout from '@/components/common/NarrowLayout';
 import { getCities, getSearchedCities } from '@/services/home';
 import Loading from '@/components/common/Loading';
 import { useState } from 'react';
+import ModalOpener from '@/components/ModalOpener';
 
 export default function Home() {
   const [q, setQ] = useState('');
+  const [filter, setFilter] = useState<'all' | 'domestic' | 'international'>(
+    'all'
+  );
 
   const { isLoading, data } = useQuery({
-    queryKey: ['cities', q],
-    queryFn: q ? () => getSearchedCities(q) : getCities,
+    queryKey: ['cities', q, filter],
+    queryFn: q
+      ? () => getSearchedCities(q)
+      : () => getCities(filter === 'all' ? undefined : filter),
   });
 
   return isLoading || !data ? (
@@ -27,9 +33,10 @@ export default function Home() {
         {/* 국가 필터 */}
         {/* 여행지 리스트 */}
         <div className='mb-21'>
-          <FilterList active='all' onChange={() => {}} />
+          <FilterList active={filter} onChange={(f) => setFilter(f)} />
         </div>
         <CityList cities={data} />
+        <ModalOpener />
       </NarrowLayout>
     </>
   );

@@ -7,7 +7,9 @@ import cn from 'classnames';
 export default function Modal({ children }: PropsWithChildren) {
   // 컴포넌트 트리 유지, 돔은 다른데 표시하고 싶은 경우 유용
   return createPortal(
-    <div className='fixed inset-0 w-full h-full'>{children}</div>,
+    <div className='fixed inset-0 w-full h-full' role='dialog'>
+      {children}
+    </div>,
     document.getElementById('modal-root')!
   );
 }
